@@ -69,9 +69,18 @@ export default function Orders() {
   if (loading || !data) return <PageSkel />;
 
   const doExport = () => toCSV(
-    table.getFilteredRowModel().rows.map(r=>r.original),
-    [{key:'id',hd:'شناسه'},{key:'customer',hd:'مشتری'},{key:'product',hd:'محصول'},
-     {key:'channel',hd:'کانال'},{key:'amount',hd:'مبلغ'},{key:'status',hd:'وضعیت'},{key:'date',hd:'تاریخ'}],
+    table.getFilteredRowModel().rows.map(
+      r => ({ ...r.original } as Record<string, unknown>)
+    ),
+    [
+      {key:'id',hd:'شناسه'},
+      {key:'customer',hd:'مشتری'},
+      {key:'product',hd:'محصول'},
+      {key:'channel',hd:'کانال'},
+      {key:'amount',hd:'مبلغ'},
+      {key:'status',hd:'وضعیت'},
+      {key:'date',hd:'تاریخ'}
+    ],
     `orders-${new Date().toISOString().slice(0,10)}.csv`,
   );
 
