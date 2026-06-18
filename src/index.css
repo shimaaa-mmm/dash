@@ -1,0 +1,33 @@
+:root { --ac:#2dd4bf; --sb:#0b1120; --sbt:#233047; }
+[data-theme=light] { --ac:#0d9488; --sb:#f1f5f9; --sbt:#cbd5e1; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%}
+body{-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--sb)}
+::-webkit-scrollbar-thumb{background:var(--sbt);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--ac)}
+
+@keyframes ecg-draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes ecg-glow{0%,100%{opacity:.35;filter:drop-shadow(0 0 3px var(--ac))}50%{opacity:1;filter:drop-shadow(0 0 10px var(--ac))}}
+.ecg{stroke-dasharray:5 4;animation:ecg-draw 18s linear infinite,ecg-glow 2.4s ease-in-out infinite}
+
+@keyframes ping{0%{transform:scale(1);opacity:.9}70%{transform:scale(2.6);opacity:0}100%{transform:scale(2.6);opacity:0}}
+.dot{position:relative;display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ac)}
+.dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--ac);animation:ping 1.8s ease-in-out infinite}
+
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.rise{animation:rise .45s cubic-bezier(.22,1,.36,1) both}
+
+@keyframes fadeslide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pg{animation:fadeslide .32s ease-out both}
+
+@keyframes bflash{0%{box-shadow:inset 0 0 0 0 rgba(45,212,191,.3)}40%{box-shadow:inset 0 0 0 1px rgba(45,212,191,.3)}100%{box-shadow:inset 0 0 0 0 rgba(45,212,191,0)}}
+.flash{animation:bflash .9s ease-out}
+
+@keyframes spinin{from{transform:rotate(-80deg) scale(.5);opacity:0}to{transform:rotate(0) scale(1);opacity:1}}
+.icspin{animation:spinin .36s cubic-bezier(.34,1.56,.64,1) both}
+
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+
+@media(prefers-reduced-motion:reduce){.ecg,.dot::after,.rise,.pg,.flash,.icspin{animation:none!important}}
